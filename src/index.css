@@ -1,0 +1,568 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+    --pres-bg: 240 20% 4%;
+    --pres-bg-surface: 240 17% 8%;
+    --pres-bg-card: 240 15% 11%;
+    --pres-accent: 41 100% 50%;
+    --pres-accent-glow: 41 100% 65%;
+    --pres-accent-dark: 33 100% 40%;
+    --pres-text: 0 0% 100%;
+    --pres-text-muted: 218 11% 65%;
+    --pres-text-dim: 220 9% 46%;
+    --pres-success: 142 70% 45%;
+    --pres-premium: 280 60% 60%;
+    --pres-danger: 0 80% 55%;
+    --pres-title: 72px;
+    --pres-title-compact: 64px;
+    --pres-body: 24px;
+    --pres-card-title: 30px;
+    --pres-card-body: 22px;
+    --pres-label: 18px;
+
+    --background: 240 20% 4%;
+    --foreground: 0 0% 100%;
+    --card: 240 17% 8%;
+    --card-foreground: 0 0% 100%;
+    --popover: 240 17% 8%;
+    --popover-foreground: 0 0% 100%;
+    --primary: 41 100% 50%;
+    --primary-foreground: 240 20% 4%;
+    --secondary: 240 10% 14%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 240 10% 14%;
+    --muted-foreground: 218 11% 65%;
+    --accent: 41 100% 50%;
+    --accent-foreground: 240 20% 4%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 240 10% 18%;
+    --input: 240 10% 18%;
+    --ring: 41 100% 50%;
+    --radius: 0.75rem;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html,
+  body {
+    color-scheme: dark;
+    background-color: hsl(var(--pres-bg));
+    color: hsl(var(--pres-text));
+    font-family: 'Poppins', sans-serif;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scrollbar-width: none;
+  }
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Ubuntu', sans-serif;
+  }
+}
+
+.pres-dark-safe-accent {
+  color: #000000 !important;
+  -webkit-text-fill-color: #000000 !important;
+  forced-color-adjust: none;
+}
+
+.noise-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 100;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+.slide-dark-bg {
+  background: hsl(var(--pres-bg));
+  position: relative;
+  width: 1920px;
+  height: 1080px;
+  overflow: hidden;
+}
+
+.slide-dark-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.07;
+  background-image:
+    radial-gradient(ellipse 600px 600px at 55% 50%, hsl(41 100% 50% / 0.5), transparent),
+    radial-gradient(circle 1.2px at center, hsl(41 80% 50% / 0.4) 1px, transparent 1px);
+  background-size: 100% 100%, 8px 8px;
+  pointer-events: none;
+}
+
+.glass-card {
+  background: linear-gradient(135deg, hsl(var(--pres-bg-surface) / 0.8), hsl(var(--pres-bg-card) / 0.6));
+  backdrop-filter: blur(12px);
+  border: 1px solid hsl(var(--pres-accent) / 0.12);
+  border-radius: 1.25rem;
+}
+
+.metric-glow {
+  color: hsl(var(--pres-accent));
+  text-shadow: 0 0 30px hsl(var(--pres-accent) / 0.4),
+               0 0 60px hsl(var(--pres-accent) / 0.15);
+}
+
+.pres-title {
+  font-size: var(--pres-title);
+  line-height: 1.06;
+}
+
+.pres-title-compact {
+  font-size: var(--pres-title-compact);
+  line-height: 1.08;
+}
+
+.pres-body {
+  font-size: var(--pres-body);
+  line-height: 1.5;
+}
+
+.pres-card-title {
+  font-size: var(--pres-card-title);
+  line-height: 1.15;
+}
+
+.pres-card-body {
+  font-size: var(--pres-card-body);
+  line-height: 1.45;
+}
+
+.accent-bar {
+  background: linear-gradient(90deg, hsl(var(--pres-accent)), hsl(var(--pres-accent-glow)));
+}
+
+.chart-bar {
+  background: linear-gradient(180deg, hsl(var(--pres-accent)), hsl(var(--pres-accent-dark)));
+}
+
+.problem-story-overlay {
+  background: linear-gradient(
+    90deg,
+    hsl(var(--pres-bg) / 0.98) 0%,
+    hsl(var(--pres-bg) / 0.94) 35%,
+    hsl(var(--pres-bg) / 0.48) 58%,
+    hsl(var(--pres-bg) / 0.08) 82%
+  );
+}
+
+/* FB-11: mirrored overlay for right-aligned pain slides */
+.problem-story-overlay-right {
+  background: linear-gradient(
+    270deg,
+    hsl(var(--pres-bg) / 0.98) 0%,
+    hsl(var(--pres-bg) / 0.94) 35%,
+    hsl(var(--pres-bg) / 0.48) 58%,
+    hsl(var(--pres-bg) / 0.08) 82%
+  );
+}
+
+/* Slide 2 clarity overlay: natural soft left vignette and all-edge perimeter blend, avoiding abrupt split */
+.problem-story-overlay-slide2-clarity {
+  background:
+    radial-gradient(
+      ellipse 70% 65% at 20% 45%,
+      hsl(var(--pres-bg) / 0.88) 0%,
+      hsl(var(--pres-bg) / 0.65) 45%,
+      transparent 80%
+    ),
+    linear-gradient(
+      90deg,
+      hsl(var(--pres-bg) / 0.85) 0%,
+      hsl(var(--pres-bg) / 0.60) 25%,
+      hsl(var(--pres-bg) / 0.20) 55%,
+      transparent 80%
+    ),
+    linear-gradient(
+      180deg,
+      hsl(var(--pres-bg) / 0.90) 0%,
+      transparent 8%,
+      transparent 90%,
+      hsl(var(--pres-bg)) 100%
+    );
+}
+
+/* Slide 3 clarity overlay: reduced dark vignette opacity across the team and monitors */
+.problem-story-overlay-slide3-clarity {
+  background: linear-gradient(
+    270deg,
+    hsl(var(--pres-bg) / 0.88) 0%,
+    hsl(var(--pres-bg) / 0.72) 32%,
+    hsl(var(--pres-bg) / 0.22) 58%,
+    hsl(var(--pres-bg) / 0.00) 78%
+  );
+}
+
+/* Slide 4 clarity overlay: soft perimeter blend without harsh half-dark masking */
+.problem-story-overlay-slide4-clarity {
+  background:
+    linear-gradient(
+      90deg,
+      hsl(var(--pres-bg) / 0.96) 0%,
+      hsl(var(--pres-bg) / 0.88) 25%,
+      hsl(var(--pres-bg) / 0.50) 48%,
+      hsl(var(--pres-bg) / 0.10) 70%,
+      hsl(var(--pres-bg) / 0.20) 100%
+    ),
+    linear-gradient(
+      180deg,
+      hsl(var(--pres-bg) / 0.90) 0%,
+      transparent 10%,
+      transparent 88%,
+      hsl(var(--pres-bg)) 100%
+    );
+}
+
+/* FB-20: Red Hat Display for price numerals */
+.font-price {
+  font-family: 'Red Hat Display', 'Poppins', sans-serif;
+}
+
+/* FB-15: subtle dot texture for tier cards (DesignModo reference) */
+
+/* Slide 5 atmospheric blend overlay: balanced contrast supporting right-side cards while keeping desk clear */
+.problem-story-overlay-slide5-blend {
+  background:
+    linear-gradient(hsl(var(--pres-bg) / 0.22), hsl(var(--pres-bg) / 0.22)),
+    radial-gradient(
+      ellipse 65% 65% at 25% 45%,
+      hsl(var(--pres-bg) / 0.9) 0%,
+      hsl(var(--pres-bg) / 0.68) 45%,
+      transparent 80%
+    ),
+    linear-gradient(
+      90deg,
+      hsl(var(--pres-bg) / 0.92) 0%,
+      hsl(var(--pres-bg) / 0.8) 28%,
+      hsl(var(--pres-bg) / 0.6) 55%,
+      hsl(var(--pres-bg) / 0.84) 85%,
+      hsl(var(--pres-bg) / 0.92) 100%
+    ),
+    linear-gradient(
+      180deg,
+      hsl(var(--pres-bg) / 0.94) 0%,
+      transparent 12%,
+      transparent 82%,
+      hsl(var(--pres-bg) / 0.95) 100%
+    );
+}
+
+.tier-card-dots {
+  background-image: radial-gradient(hsl(var(--pres-text) / 0.08) 1.2px, transparent 1.3px);
+  background-size: 22px 22px;
+}
+
+/* FB-08: light cinematic text-shadow for pain headlines over imagery */
+.pain-headline-shadow {
+  text-shadow:
+    0 2px 18px hsl(var(--pres-bg) / 0.75),
+    0 1px 4px hsl(var(--pres-bg) / 0.9);
+}
+
+.comparison-row,
+.tier-column {
+  transition: background-color 200ms ease, border-color 200ms ease, filter 200ms ease;
+}
+
+.comparison-header {
+  min-height: 156px;
+}
+
+.comparison-tier-header {
+  border-color: hsl(var(--pres-accent) / 0.24);
+  background: hsl(var(--pres-accent) / 0.055);
+  border-radius: 12px 12px 0 0;
+}
+
+.comparison-tier-header[data-column="1"] {
+  border-color: hsl(var(--pres-success) / 0.24);
+  background: hsl(var(--pres-success) / 0.055);
+}
+
+.comparison-tier-header[data-column="2"] {
+  border-color: hsl(var(--pres-premium) / 0.24);
+  background: hsl(var(--pres-premium) / 0.055);
+}
+
+.comparison-tier-price,
+.comparison-value-cell[data-column="0"] .comparison-value-icon,
+.comparison-value-text[data-column-value="0"] {
+  color: hsl(var(--pres-accent));
+}
+
+.comparison-tier-header[data-column="1"] .comparison-tier-price,
+.comparison-value-cell[data-column="1"] .comparison-value-icon,
+.comparison-value-text[data-column-value="1"] {
+  color: hsl(var(--pres-success));
+}
+
+.comparison-tier-header[data-column="2"] .comparison-tier-price,
+.comparison-value-cell[data-column="2"] .comparison-value-icon,
+.comparison-value-text[data-column-value="2"] {
+  color: hsl(var(--pres-premium));
+}
+
+.comparison-tier-badge {
+  color: hsl(var(--pres-text));
+  background: hsl(var(--pres-text) / 0.09);
+  border: 1px solid hsl(var(--pres-text) / 0.12);
+  border-radius: 999px;
+}
+
+.comparison-group-label {
+  color: hsl(var(--pres-accent));
+  background: hsl(var(--pres-bg-surface) / 0.97);
+  border-bottom: 1px solid hsl(var(--pres-accent) / 0.18);
+  box-shadow: 0 8px 22px hsl(var(--pres-bg) / 0.36);
+}
+
+.comparison-value-cell {
+  border-radius: 6px;
+}
+
+.comparison-value-icon {
+  width: 30px;
+  height: 30px;
+  stroke-width: 2.2;
+}
+
+.comparison-value-negative {
+  color: hsl(var(--pres-danger)) !important;
+  opacity: 0.86;
+}
+
+.comparison-value-text {
+  font-size: 24px;
+  line-height: 1.2;
+}
+
+.comparison-row:hover {
+  background-color: hsl(var(--pres-text) / 0.07) !important;
+  border-color: hsl(var(--pres-text) / 0.15);
+}
+
+.comparison-table[data-hovered-column="0"] .tier-column[data-column="0"] {
+  background-color: hsl(var(--pres-accent) / 0.12);
+  filter: brightness(1.2);
+}
+
+.comparison-table[data-hovered-column="1"] .tier-column[data-column="1"] {
+  background-color: hsl(var(--pres-success) / 0.12);
+  filter: brightness(1.2);
+}
+
+.comparison-table[data-hovered-column="2"] .tier-column[data-column="2"] {
+  background-color: hsl(var(--pres-premium) / 0.12);
+  filter: brightness(1.2);
+}
+
+.comparison-scroll {
+  scrollbar-width: none;
+}
+
+.comparison-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.comparison-scroll:focus-visible {
+  outline: 2px solid hsl(var(--pres-accent) / 0.75);
+  outline-offset: -2px;
+}
+
+.comparison-scroll-rail {
+  background: hsl(var(--pres-text) / 0.07);
+  border: 1px solid hsl(var(--pres-text) / 0.1);
+  border-radius: 999px;
+}
+
+.comparison-scroll-rail:focus-visible {
+  outline: 3px solid hsl(var(--pres-accent) / 0.85);
+  outline-offset: 4px;
+}
+
+.comparison-scroll-thumb {
+  background: hsl(var(--pres-accent) / 0.68);
+  border-radius: 999px;
+  box-shadow: 0 0 18px hsl(var(--pres-accent) / 0.2);
+}
+
+.comparison-scroll-rail:hover .comparison-scroll-thumb {
+  background: hsl(var(--pres-accent) / 0.92);
+}
+
+.comparison-scroll-fade {
+  background: linear-gradient(to bottom, transparent, hsl(var(--pres-bg) / 0.96));
+}
+
+.comparison-scroll-cue {
+  color: hsl(var(--pres-text));
+  background: hsl(var(--pres-bg-surface) / 0.94);
+  border: 1px solid hsl(var(--pres-accent) / 0.28);
+  border-radius: 999px;
+  box-shadow: 0 10px 28px hsl(var(--pres-bg) / 0.5);
+}
+
+.presentation-controls {
+  transition: border-color 200ms ease, box-shadow 250ms ease, background-color 200ms ease;
+}
+
+.presentation-controls:hover {
+  border-color: hsl(var(--pres-accent) / 0.35);
+  box-shadow: 0 12px 32px hsl(var(--pres-bg) / 0.7), 0 0 22px hsl(var(--pres-accent) / 0.08);
+}
+
+.presentation-control {
+  transition: color 180ms ease, background-color 180ms ease, transform 180ms ease;
+}
+
+.presentation-control:hover {
+  background-color: hsl(var(--pres-text) / 0.1);
+  transform: translateY(-1px);
+}
+
+.presentation-control:active {
+  transform: scale(0.92);
+}
+
+.presentation-dot:hover {
+  transform: scale(1.35);
+}
+
+.presentation-action {
+  transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1), border-color 200ms ease,
+    background-color 200ms ease, box-shadow 250ms ease;
+}
+
+.presentation-action:hover {
+  transform: translateY(-3px) scale(1.015);
+}
+
+.presentation-action:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* DeckButton (Batch 38, owner direction): no hover lift or zoom on the
+   deck's buttons — the hover is a pure color flip (amber to white),
+   matching the present-v1 hero CTA. Same specificity as the rules
+   above, later in the file, so it wins for .deck-button elements. */
+.deck-button:hover,
+.deck-button:active {
+  transform: none;
+}
+
+.presentation-focus:focus-visible,
+.presentation-action:focus-visible,
+.presentation-control:focus-visible,
+.presentation-dot:focus-visible {
+  outline: 3px solid hsl(var(--pres-accent) / 0.9);
+  outline-offset: 3px;
+}
+
+/* Promise band rows — Delivery Promises & Product Health slides */
+.promise-band {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 34px;
+  padding: 26px 34px 26px 26px;
+  border-bottom: 1px solid hsl(var(--pres-text) / 0.12);
+  border-radius: 12px;
+  transition: transform 240ms cubic-bezier(0.22, 1, 0.36, 1), background-color 220ms ease,
+    box-shadow 260ms ease;
+}
+
+.promise-band:last-child {
+  border-bottom-color: transparent;
+}
+
+.promise-band::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 5px;
+  height: 56%;
+  border-radius: 3px;
+  background: hsl(var(--pres-accent));
+  opacity: 0;
+  transform: translateY(-50%);
+  box-shadow: 0 0 24px hsl(var(--pres-accent) / 0.45);
+  transition: opacity 200ms ease;
+}
+
+.promise-band:hover {
+  background-color: hsl(var(--pres-text) / 0.04);
+  transform: translateY(-2px);
+  box-shadow: 0 14px 34px hsl(var(--pres-bg) / 0.55);
+}
+
+.promise-band:hover::before {
+  opacity: 1;
+}
+
+.promise-band-index {
+  min-width: 74px;
+  font-size: 34px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: hsl(var(--pres-accent) / 0.75);
+  transition: color 200ms ease;
+}
+
+.promise-band:hover .promise-band-index {
+  color: hsl(var(--pres-accent));
+}
+
+.promise-band-rule {
+  display: block;
+  flex: 0 0 1px;
+  width: 1px;
+  height: 58px;
+  background: hsl(var(--pres-text) / 0.3);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Batch 69: light gate hint (replaces the bouncing amber pill) */
+@keyframes gate-hint-in {
+  from {
+    opacity: 0;
+    transform: translateY(-3px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.gate-hint {
+  animation: gate-hint-in 0.3s ease both;
+}
